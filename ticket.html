@@ -312,17 +312,16 @@
   var isAndroid = /Android/i.test(navigator.userAgent);
   var isIOS     = /iPhone|iPad/i.test(navigator.userAgent);
 
-  function imprimir() {
+function imprimir() {
+  if (isAndroid) {
+    // Fuerza abrir en Chrome nativo
+    var url = window.location.href;
+    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") + 
+      "#Intent;scheme=https;package=com.android.chrome;end";
+  } else {
     window.print();
   }
-
-  window.onload = function() {
-    if (!isAndroid && !isIOS) {
-      // Desktop: auto-print
-      setTimeout(function() { window.print(); }, 800);
-    }
-    // Android/iOS: el usuario toca el botón
-  };
+}
 </script>
 
 </body>
