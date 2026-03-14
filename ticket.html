@@ -6,93 +6,104 @@
   <title>Ticket GMF Cafetería</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Courier New', Courier, monospace;
-      width: 80mm;
+      width: 58mm;
       margin: 0 auto;
-      padding: 4mm;
-      font-size: 13px;
+      padding: 2mm;
+      font-size: 11px;
       color: #000;
       background: #fff;
     }
-    .header { text-align: center; padding: 10px 6px; border-bottom: 5px solid #000; }
-    .sello { display: inline-block; border: 3px solid #000; padding: 5px 18px; }
-    .sello-sub  { font-size: 10px; letter-spacing: 3px; }
-    .sello-main { font-size: 20px; font-weight: 900; letter-spacing: 4px; line-height: 1; }
-    .beneficiario-block { padding: 12px 14px 10px; border-bottom: 3px solid #000; }
-    .label-small { font-size: 9px; letter-spacing: 3px; font-weight: 900; color: #555; }
-    .nombre-principal { font-size: 26px; font-weight: 900; line-height: 1.1; margin-top: 3px; }
+
+    .header {
+      text-align: center;
+      padding: 6px 4px;
+      border-bottom: 4px solid #000;
+      margin-bottom: 6px;
+    }
+    .sello { display: inline-block; border: 2px solid #000; padding: 3px 10px; }
+    .sello-sub  { font-size: 8px; letter-spacing: 3px; }
+    .sello-main { font-size: 16px; font-weight: 900; letter-spacing: 3px; line-height: 1; }
+
+    .beneficiario-block {
+      padding: 8px 6px;
+      border-bottom: 2px solid #000;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .label-small { font-size: 8px; letter-spacing: 2px; font-weight: 900; color: #555; }
+    .nombre-principal { font-size: 18px; font-weight: 900; line-height: 1.1; margin-top: 2px; word-break: break-word; }
     .grado-badge {
       display: inline-block; border: 2px solid #000;
-      padding: 2px 10px; margin-top: 5px;
-      font-size: 15px; font-weight: 900; letter-spacing: 1px;
+      padding: 1px 8px; margin-top: 4px;
+      font-size: 12px; font-weight: 900; letter-spacing: 1px;
     }
-    .body { padding: 10px 14px; }
-    .dia-block { text-align: center; margin-bottom: 8px; }
-    .dia-nombre { font-size: 22px; font-weight: 900; letter-spacing: 2px; }
-    .dia-fecha  { font-size: 13px; font-weight: 700; color: #444; }
-    .pedido-id  { font-size: 9px; color: #999; margin-top: 1px; letter-spacing: 1px; }
-    .cliente-ref { font-size: 10px; color: #777; margin-top: 1px; }
-    .separator-solid  { border-top: 2px solid #000; margin: 8px 0; }
-    .separator-dashed { border-top: 1px dashed #000; margin: 6px 0; }
-    .separator-double { border-top: 3px double #000; margin: 10px 0; }
-    .section-title { font-size: 11px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px; }
-    .plato-label { font-size: 9px; color: #777; letter-spacing: 1px; }
-    .plato-nombre { font-size: 18px; font-weight: 900; line-height: 1.2; padding-left: 4px; }
-    .monto-row { display: flex; justify-content: space-between; align-items: center; }
-    .pago-text { font-size: 11px; color: #777; }
-    .monto-label { font-size: 10px; color: #777; text-align: right; }
-    .monto-valor { font-size: 30px; font-weight: 900; line-height: 1; }
-    .estado-label { font-size: 9px; letter-spacing: 2px; color: #777; margin-bottom: 4px; text-align: center; }
-    .estado-box {
-      border: 3px solid #000; padding: 9px 4px;
-      text-align: center; font-size: 15px;
-      font-weight: 900; letter-spacing: 0.5px; margin-bottom: 10px;
-    }
-    .footer { border-top: 1px dashed #bbb; padding-top: 7px; text-align: center; }
-    .footer-tiki { font-size: 14px; font-weight: 900; letter-spacing: 6px; }
-    .footer-sub  { font-size: 8px; color: #aaa; }
 
-    /* Botón imprimir - solo pantalla */
-    .btn-imprimir {
-      display: none;
-      text-align: center;
-      margin-top: 14px;
+    .body { padding: 4px 6px; }
+
+    .dia-block { text-align: center; margin-bottom: 6px; }
+    .dia-nombre { font-size: 18px; font-weight: 900; letter-spacing: 2px; }
+    .dia-fecha  { font-size: 10px; font-weight: 700; color: #444; }
+    .pedido-id  { font-size: 8px; color: #999; margin-top: 1px; letter-spacing: 1px; }
+    .cliente-ref { font-size: 9px; color: #777; margin-top: 1px; }
+
+    .separator-solid  { border-top: 2px solid #000; margin: 6px 0; }
+    .separator-dashed { border-top: 1px dashed #000; margin: 5px 0; }
+    .separator-double { border-top: 3px double #000; margin: 8px 0; }
+
+    .section-title { font-size: 8px; font-weight: 900; letter-spacing: 2px; margin-bottom: 6px; color: #555; }
+    .plato-label  { font-size: 8px; color: #777; letter-spacing: 1px; }
+    .plato-nombre { font-size: 14px; font-weight: 900; line-height: 1.2; padding-left: 2px; word-break: break-word; }
+
+    .monto-block { text-align: center; margin: 4px 0; }
+    .pago-text   { font-size: 9px; color: #777; margin-bottom: 2px; }
+    .monto-label { font-size: 8px; color: #777; letter-spacing: 1px; }
+    .monto-valor { font-size: 28px; font-weight: 900; line-height: 1; }
+
+    .estado-label { font-size: 8px; letter-spacing: 2px; color: #777; margin-bottom: 3px; text-align: center; }
+    .estado-box {
+      border: 2px solid #000; padding: 6px 4px;
+      text-align: center; font-size: 11px;
+      font-weight: 900; letter-spacing: 0.5px; margin-bottom: 8px;
+      word-break: break-word;
     }
-    .btn-imprimir button {
+
+    .footer { border-top: 1px dashed #bbb; padding-top: 5px; text-align: center; }
+    .footer-tiki { font-size: 12px; font-weight: 900; letter-spacing: 5px; }
+    .footer-sub  { font-size: 7px; color: #aaa; }
+
+    .btn-desktop { display: none; text-align: center; margin-bottom: 10px; }
+    .btn-desktop button {
       font-family: 'Courier New', monospace;
-      font-size: 18px; font-weight: 900;
-      background: #000; color: #fff;
-      border: none; padding: 14px 0;
-      letter-spacing: 2px; cursor: pointer;
-      width: 100%; border-radius: 8px;
-    }
-    .btn-print-desktop {
-      display: block;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    .btn-print-desktop button {
-      font-family: 'Courier New', monospace;
-      font-size: 14px; font-weight: 900;
+      font-size: 13px; font-weight: 900;
       background: #000; color: #fff;
       border: none; padding: 10px 0;
       letter-spacing: 2px; cursor: pointer;
-      width: 100%; border-radius: 8px;
+      width: 100%; border-radius: 6px;
+    }
+    .btn-mobile { display: none; text-align: center; margin-top: 12px; }
+    .btn-mobile button {
+      font-family: 'Courier New', monospace;
+      font-size: 14px; font-weight: 900;
+      background: #000; color: #fff;
+      border: none; padding: 12px 0;
+      letter-spacing: 2px; cursor: pointer;
+      width: 100%; border-radius: 6px;
     }
 
     @media print {
-      body { width: 80mm; margin: 0; padding: 4mm; }
-      @page { size: 80mm auto; margin: 0; }
-      .btn-imprimir { display: none !important; }
-      .btn-print-desktop { display: none !important; }
+      body { width: 58mm; margin: 0; padding: 2mm; }
+      @page { size: 58mm auto; margin: 0; }
+      .btn-desktop { display: none !important; }
+      .btn-mobile  { display: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Botón desktop (encima del ticket) -->
-  <div class="btn-print-desktop" id="btn-desktop" style="display:none">
+  <div class="btn-desktop" id="btn-desktop">
     <button onclick="window.print()">🖨️ IMPRIMIR</button>
   </div>
 
@@ -121,20 +132,18 @@
     <div class="separator-solid"></div>
     <div class="section-title">▸ PEDIDO</div>
 
-    <!-- Menú Estudiantil -->
     <div id="bloque-estudiantil" style="display:none">
       <div class="plato-label">MENÚ ESTUDIANTIL</div>
       <div class="plato-nombre" id="plato-estudiantil"></div>
     </div>
 
-    <!-- Menú Ejecutivo -->
     <div id="bloque-ejecutivo" style="display:none">
-      <div style="margin-bottom:8px;padding-left:4px">
+      <div style="margin-bottom:6px; padding-left:2px">
         <div class="plato-label">ENTRADA</div>
         <div class="plato-nombre" id="plato-entrada"></div>
       </div>
       <div class="separator-dashed"></div>
-      <div style="padding-left:4px">
+      <div style="padding-left:2px">
         <div class="plato-label">SEGUNDO</div>
         <div class="plato-nombre" id="plato-segundo"></div>
       </div>
@@ -142,12 +151,10 @@
 
     <div class="separator-double"></div>
 
-    <div class="monto-row">
+    <div class="monto-block">
       <div class="pago-text" id="metodo-pago">Pago: —</div>
-      <div>
-        <div class="monto-label">TOTAL DEL DÍA</div>
-        <div class="monto-valor" id="monto">S/0.00</div>
-      </div>
+      <div class="monto-label">TOTAL DEL DÍA</div>
+      <div class="monto-valor" id="monto">S/0.00</div>
     </div>
 
     <div class="separator-double"></div>
@@ -160,8 +167,7 @@
       <div class="footer-sub" id="footer-fecha">VIEW TECH</div>
     </div>
 
-    <!-- Botón móvil (debajo del ticket) -->
-    <div class="btn-imprimir" id="btn-mobile">
+    <div class="btn-mobile" id="btn-mobile">
       <button onclick="window.print()">🖨️ ABRIR E IMPRIMIR</button>
     </div>
 
@@ -185,7 +191,6 @@
   var metodoPago   = getParam('metodoPago');
   var estado       = getParam('estado');
 
-  // Beneficiario / alumno
   var tieneAlumno = beneficiario && beneficiario !== '' && beneficiario !== 'Para mí';
   if (tieneAlumno) {
     document.getElementById('etiqueta-beneficiario').textContent = 'ALUMNO';
@@ -203,44 +208,33 @@
     document.getElementById('nombre-principal').textContent = cliente || '—';
   }
 
-  // Día y fecha
   var diaCapital = dia ? dia.charAt(0).toUpperCase() + dia.slice(1).toLowerCase() : '—';
   document.getElementById('dia-nombre').textContent = diaCapital.toUpperCase();
   document.getElementById('dia-fecha').textContent  = fecha || '—';
   document.getElementById('pedido-id').textContent  = pedidoId || '—';
 
-  // Platos — estudiantil viene de PLATO_SEGUNDO con emoji 🎓
-  var textoEstudiantil = estudiantil.replace('🎓', '').replace(/\|.*/, '').trim();
   if (estudiantil && estudiantil.indexOf('🎓') > -1) {
+    var textoEst = estudiantil.replace('🎓', '').replace(/\|.*/, '').trim();
     document.getElementById('bloque-estudiantil').style.display = 'block';
-    document.getElementById('plato-estudiantil').textContent = textoEstudiantil;
-  } else if (estudiantil && estudiantil.trim() !== '') {
-    // Si viene sin emoji pero tiene valor (menú ejecutivo por PLATO_SEGUNDO)
-    document.getElementById('bloque-ejecutivo').style.display = 'block';
-    document.getElementById('plato-entrada').textContent = entrada || '—';
-    document.getElementById('plato-segundo').textContent = estudiantil.replace('🍛', '').replace('|', '').trim() || '—';
+    document.getElementById('plato-estudiantil').textContent = textoEst;
   } else {
     document.getElementById('bloque-ejecutivo').style.display = 'block';
     document.getElementById('plato-entrada').textContent = entrada || '—';
-    document.getElementById('plato-segundo').textContent = segundo || '—';
+    var textoSeg = estudiantil ? estudiantil.replace('🍛', '').replace('|', '').trim() : (segundo || '—');
+    document.getElementById('plato-segundo').textContent = textoSeg;
   }
 
-  // Monto
   document.getElementById('monto').textContent = 'S/' + (parseFloat(monto) || 0).toFixed(2);
 
-  // Método de pago
   var metodos = { 'yape': 'Yape', 'transferencia': 'Transferencia', '': 'Efectivo en Cafetín' };
   document.getElementById('metodo-pago').textContent = 'Pago: ' + (metodos[metodoPago] || metodoPago || 'Efectivo en Cafetín');
 
-  // Estado
   document.getElementById('estado').textContent = estado || '🟡 PENDIENTE';
 
-  // Footer
   var ahora = new Date();
   var fechaGen = ahora.toLocaleDateString('es-PE') + ' ' + ahora.toLocaleTimeString('es-PE', {hour:'2-digit', minute:'2-digit'});
   document.getElementById('footer-fecha').textContent = 'VIEW TECH · ' + fechaGen;
 
-  // Impresión
   window.onload = function() {
     var esMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
     if (esMobile) {
