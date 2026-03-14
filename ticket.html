@@ -6,267 +6,194 @@
   <title>Ticket GMF Cafetería</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Courier New', Courier, monospace;
-      background: #e8e8e8;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px;
-    }
-
-    /* ── BOTÓN IMPRIMIR (solo visible en pantalla) ── */
-    .print-bar {
-      width: 100%;
-      max-width: 340px;
-      margin-bottom: 16px;
-    }
-
-    .btn-print {
-      width: 100%;
-      padding: 14px;
-      background: #000;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Courier New', monospace;
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-print:active { background: #333; }
-
-    /* ── TICKET ── */
-    .ticket {
-      width: 100%;
-      max-width: 340px;
+      width: 80mm;
+      margin: 0 auto;
+      padding: 4mm;
+      font-size: 13px;
+      color: #000;
       background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-      overflow: hidden;
     }
-
-    .ticket-header {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 16px 12px 14px;
+    .header { text-align: center; padding: 10px 6px; border-bottom: 5px solid #000; }
+    .sello { display: inline-block; border: 3px solid #000; padding: 5px 18px; }
+    .sello-sub  { font-size: 10px; letter-spacing: 3px; }
+    .sello-main { font-size: 20px; font-weight: 900; letter-spacing: 4px; line-height: 1; }
+    .beneficiario-block { padding: 12px 14px 10px; border-bottom: 3px solid #000; }
+    .label-small { font-size: 9px; letter-spacing: 3px; font-weight: 900; color: #555; }
+    .nombre-principal { font-size: 26px; font-weight: 900; line-height: 1.1; margin-top: 3px; }
+    .grado-badge {
+      display: inline-block; border: 2px solid #000;
+      padding: 2px 10px; margin-top: 5px;
+      font-size: 15px; font-weight: 900; letter-spacing: 1px;
     }
-    .ticket-header .marca { font-size: 11px; letter-spacing: 6px; opacity: 0.6; }
-    .ticket-header .nombre { font-size: 26px; font-weight: 900; letter-spacing: 5px; line-height: 1; margin: 4px 0 2px; }
-    .ticket-header .sub { font-size: 9px; letter-spacing: 3px; opacity: 0.5; }
-
-    .beneficiario {
-      padding: 14px 16px 12px;
-      border-bottom: 3px solid #000;
-    }
-    .beneficiario .etiqueta { font-size: 9px; letter-spacing: 3px; color: #888; font-weight: 900; }
-    .beneficiario .nombre-grande { font-size: 24px; font-weight: 900; line-height: 1.1; margin-top: 3px; }
-    .beneficiario .grado-tag {
-      display: inline-block;
-      border: 2px solid #000;
-      padding: 2px 10px;
-      font-size: 13px;
-      font-weight: 900;
-      margin-top: 6px;
-      letter-spacing: 1px;
-    }
-
-    .cuerpo { padding: 12px 16px; }
-
-    .dia-bloque {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .dia-nombre { font-size: 28px; font-weight: 900; letter-spacing: 3px; }
-    .dia-fecha  { font-size: 12px; color: #666; font-weight: 700; }
-    .pedido-id  { font-size: 9px; color: #aaa; letter-spacing: 1px; margin-top: 2px; }
-    .cliente-ref { font-size: 10px; color: #888; margin-top: 1px; }
-
-    .sep-solid  { border-top: 2px solid #000; margin: 10px 0; }
-    .sep-dash   { border-top: 1px dashed #aaa; margin: 8px 0; }
-    .sep-double { border-top: 3px double #000; margin: 12px 0; }
-
-    .seccion-titulo {
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: #555;
-      margin-bottom: 8px;
-    }
-
-    .plato-label { font-size: 9px; color: #aaa; letter-spacing: 1px; }
-    .plato-nombre { font-size: 18px; font-weight: 900; line-height: 1.2; padding-left: 4px; margin-bottom: 4px; }
-
-    .monto-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-    .pago-info { font-size: 11px; color: #777; }
-    .monto-bloque { text-align: right; }
-    .monto-label { font-size: 9px; color: #aaa; letter-spacing: 1px; }
-    .monto-valor { font-size: 32px; font-weight: 900; line-height: 1; }
-
-    .estado-label {
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: #aaa;
-      text-align: center;
-      margin-bottom: 4px;
-    }
+    .body { padding: 10px 14px; }
+    .dia-block { text-align: center; margin-bottom: 8px; }
+    .dia-nombre { font-size: 22px; font-weight: 900; letter-spacing: 2px; }
+    .dia-fecha  { font-size: 13px; font-weight: 700; color: #444; }
+    .pedido-id  { font-size: 9px; color: #999; margin-top: 1px; letter-spacing: 1px; }
+    .cliente-ref { font-size: 10px; color: #777; margin-top: 1px; }
+    .separator-solid  { border-top: 2px solid #000; margin: 8px 0; }
+    .separator-dashed { border-top: 1px dashed #000; margin: 6px 0; }
+    .separator-double { border-top: 3px double #000; margin: 10px 0; }
+    .section-title { font-size: 11px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px; }
+    .plato-label { font-size: 9px; color: #777; letter-spacing: 1px; }
+    .plato-nombre { font-size: 18px; font-weight: 900; line-height: 1.2; padding-left: 4px; }
+    .monto-row { display: flex; justify-content: space-between; align-items: center; }
+    .pago-text { font-size: 11px; color: #777; }
+    .monto-label { font-size: 10px; color: #777; text-align: right; }
+    .monto-valor { font-size: 30px; font-weight: 900; line-height: 1; }
+    .estado-label { font-size: 9px; letter-spacing: 2px; color: #777; margin-bottom: 4px; text-align: center; }
     .estado-box {
-      border: 3px solid #000;
-      padding: 10px 6px;
+      border: 3px solid #000; padding: 9px 4px;
+      text-align: center; font-size: 15px;
+      font-weight: 900; letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .footer { border-top: 1px dashed #bbb; padding-top: 7px; text-align: center; }
+    .footer-tiki { font-size: 14px; font-weight: 900; letter-spacing: 6px; }
+    .footer-sub  { font-size: 8px; color: #aaa; }
+
+    /* Botón imprimir - solo pantalla */
+    .btn-imprimir {
+      display: none;
       text-align: center;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 1px;
+      margin-top: 14px;
+    }
+    .btn-imprimir button {
+      font-family: 'Courier New', monospace;
+      font-size: 18px; font-weight: 900;
+      background: #000; color: #fff;
+      border: none; padding: 14px 0;
+      letter-spacing: 2px; cursor: pointer;
+      width: 100%; border-radius: 8px;
+    }
+    .btn-print-desktop {
+      display: block;
+      text-align: center;
       margin-bottom: 12px;
     }
-
-    .ticket-footer {
-      border-top: 1px dashed #ccc;
-      padding: 10px 0 4px;
-      text-align: center;
+    .btn-print-desktop button {
+      font-family: 'Courier New', monospace;
+      font-size: 14px; font-weight: 900;
+      background: #000; color: #fff;
+      border: none; padding: 10px 0;
+      letter-spacing: 2px; cursor: pointer;
+      width: 100%; border-radius: 8px;
     }
-    .footer-tiki { font-size: 16px; font-weight: 900; letter-spacing: 8px; }
-    .footer-sub  { font-size: 8px; color: #bbb; letter-spacing: 1px; margin-top: 2px; }
 
-    /* ── PRINT STYLES ── */
     @media print {
-      body {
-        background: #fff;
-        padding: 0;
-        display: block;
-      }
-      .print-bar { display: none !important; }
-      .ticket {
-        max-width: 80mm;
-        width: 80mm;
-        box-shadow: none;
-        border-radius: 0;
-      }
-      @page {
-        size: 80mm auto;
-        margin: 0;
-      }
+      body { width: 80mm; margin: 0; padding: 4mm; }
+      @page { size: 80mm auto; margin: 0; }
+      .btn-imprimir { display: none !important; }
+      .btn-print-desktop { display: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="print-bar">
-    <button class="btn-print" onclick="imprimir()">🖨️ IMPRIMIR</button>
+  <!-- Botón desktop (encima del ticket) -->
+  <div class="btn-print-desktop" id="btn-desktop" style="display:none">
+    <button onclick="window.print()">🖨️ IMPRIMIR</button>
   </div>
 
-  <div class="ticket">
+  <div class="header">
+    <div class="sello">
+      <div class="sello-sub">GMF</div>
+      <div class="sello-main">CAFETERÍA</div>
+    </div>
+  </div>
 
-    <div class="ticket-header">
-      <div class="marca">GMF</div>
-      <div class="nombre">CAFETERÍA</div>
-      <div class="sub">SISTEMA TIKI · VIEW TECH</div>
+  <div class="beneficiario-block">
+    <div class="label-small" id="etiqueta-beneficiario">CLIENTE</div>
+    <div class="nombre-principal" id="nombre-principal">—</div>
+    <div class="grado-badge" id="grado-badge" style="display:none"></div>
+  </div>
+
+  <div class="body">
+
+    <div class="dia-block">
+      <div class="dia-nombre" id="dia-nombre">—</div>
+      <div class="dia-fecha"  id="dia-fecha">—</div>
+      <div class="pedido-id"  id="pedido-id">—</div>
+      <div class="cliente-ref" id="cliente-ref" style="display:none"></div>
     </div>
 
-    <div class="beneficiario" id="bloque-beneficiario">
-      <div class="etiqueta" id="etiqueta-beneficiario">CLIENTE</div>
-      <div class="nombre-grande" id="nombre-principal">—</div>
-      <div class="grado-tag" id="grado-tag" style="display:none"></div>
+    <div class="separator-solid"></div>
+    <div class="section-title">▸ PEDIDO</div>
+
+    <!-- Menú Estudiantil -->
+    <div id="bloque-estudiantil" style="display:none">
+      <div class="plato-label">MENÚ ESTUDIANTIL</div>
+      <div class="plato-nombre" id="plato-estudiantil"></div>
     </div>
 
-    <div class="cuerpo">
-
-      <div class="dia-bloque">
-        <div class="dia-nombre" id="dia-nombre">—</div>
-        <div class="dia-fecha"  id="dia-fecha">—</div>
-        <div class="pedido-id"  id="pedido-id">—</div>
-        <div class="cliente-ref" id="cliente-ref" style="display:none"></div>
+    <!-- Menú Ejecutivo -->
+    <div id="bloque-ejecutivo" style="display:none">
+      <div style="margin-bottom:8px;padding-left:4px">
+        <div class="plato-label">ENTRADA</div>
+        <div class="plato-nombre" id="plato-entrada"></div>
       </div>
-
-      <div class="sep-solid"></div>
-      <div class="seccion-titulo">▸ PEDIDO</div>
-
-      <!-- Menú Estudiantil -->
-      <div id="bloque-estudiantil" style="display:none">
-        <div class="plato-label">MENÚ ESTUDIANTIL</div>
-        <div class="plato-nombre" id="plato-estudiantil"></div>
+      <div class="separator-dashed"></div>
+      <div style="padding-left:4px">
+        <div class="plato-label">SEGUNDO</div>
+        <div class="plato-nombre" id="plato-segundo"></div>
       </div>
-
-      <!-- Menú Ejecutivo -->
-      <div id="bloque-ejecutivo" style="display:none">
-        <div style="margin-bottom:8px; padding-left:4px">
-          <div class="plato-label">ENTRADA</div>
-          <div class="plato-nombre" id="plato-entrada"></div>
-        </div>
-        <div class="sep-dash"></div>
-        <div style="padding-left:4px">
-          <div class="plato-label">SEGUNDO</div>
-          <div class="plato-nombre" id="plato-segundo"></div>
-        </div>
-      </div>
-
-      <div class="sep-double"></div>
-
-      <div class="monto-row">
-        <div class="pago-info">
-          <div class="plato-label">MÉTODO DE PAGO</div>
-          <div id="metodo-pago" style="font-weight:900; font-size:13px;">—</div>
-        </div>
-        <div class="monto-bloque">
-          <div class="monto-label">TOTAL DEL DÍA</div>
-          <div class="monto-valor" id="monto">S/0.00</div>
-        </div>
-      </div>
-
-      <div class="sep-double"></div>
-
-      <div class="estado-label">ESTADO</div>
-      <div class="estado-box" id="estado">—</div>
-
-      <div class="ticket-footer">
-        <div class="footer-tiki">TIKI</div>
-        <div class="footer-sub" id="footer-fecha">VIEW TECH</div>
-      </div>
-
     </div>
+
+    <div class="separator-double"></div>
+
+    <div class="monto-row">
+      <div class="pago-text" id="metodo-pago">Pago: —</div>
+      <div>
+        <div class="monto-label">TOTAL DEL DÍA</div>
+        <div class="monto-valor" id="monto">S/0.00</div>
+      </div>
+    </div>
+
+    <div class="separator-double"></div>
+
+    <div class="estado-label">ESTADO</div>
+    <div class="estado-box" id="estado">—</div>
+
+    <div class="footer">
+      <div class="footer-tiki">TIKI</div>
+      <div class="footer-sub" id="footer-fecha">VIEW TECH</div>
+    </div>
+
+    <!-- Botón móvil (debajo del ticket) -->
+    <div class="btn-imprimir" id="btn-mobile">
+      <button onclick="window.print()">🖨️ ABRIR E IMPRIMIR</button>
+    </div>
+
   </div>
 
 <script>
-  // ── LEER PARÁMETROS DE LA URL ──────────────────────────
   function getParam(name) {
-    var url = new URLSearchParams(window.location.search);
-    return decodeURIComponent(url.get(name) || '');
+    return decodeURIComponent(new URLSearchParams(window.location.search).get(name) || '');
   }
 
-  var pedidoId      = getParam('pedidoId');
-  var cliente       = getParam('cliente');
-  var beneficiario  = getParam('beneficiario');
-  var grado         = getParam('grado');
-  var dia           = getParam('dia');
-  var fecha         = getParam('fecha');
-  var estudiantil   = getParam('estudiantil');
-  var entrada       = getParam('entrada');
-  var segundo       = getParam('segundo');
-  var monto         = getParam('monto');
-  var metodoPago    = getParam('metodoPago');
-  var estado        = getParam('estado');
+  var pedidoId     = getParam('pedidoId');
+  var cliente      = getParam('cliente');
+  var beneficiario = getParam('beneficiario');
+  var grado        = getParam('grado');
+  var dia          = getParam('dia');
+  var fecha        = getParam('fecha');
+  var estudiantil  = getParam('estudiantil');
+  var entrada      = getParam('entrada');
+  var segundo      = getParam('segundo');
+  var monto        = getParam('monto');
+  var metodoPago   = getParam('metodoPago');
+  var estado       = getParam('estado');
 
-  // ── RELLENAR TICKET ───────────────────────────────────
-
-  // Beneficiario o cliente
+  // Beneficiario / alumno
   var tieneAlumno = beneficiario && beneficiario !== '' && beneficiario !== 'Para mí';
   if (tieneAlumno) {
     document.getElementById('etiqueta-beneficiario').textContent = 'ALUMNO';
     document.getElementById('nombre-principal').textContent = beneficiario;
     if (grado) {
-      var gt = document.getElementById('grado-tag');
-      gt.textContent = grado;
-      gt.style.display = 'inline-block';
+      var gb = document.getElementById('grado-badge');
+      gb.textContent = grado;
+      gb.style.display = 'inline-block';
     }
     var cr = document.getElementById('cliente-ref');
     cr.textContent = 'Cliente: ' + cliente;
@@ -282,10 +209,16 @@
   document.getElementById('dia-fecha').textContent  = fecha || '—';
   document.getElementById('pedido-id').textContent  = pedidoId || '—';
 
-  // Platos
-  if (estudiantil) {
+  // Platos — estudiantil viene de PLATO_SEGUNDO con emoji 🎓
+  var textoEstudiantil = estudiantil.replace('🎓', '').replace(/\|.*/, '').trim();
+  if (estudiantil && estudiantil.indexOf('🎓') > -1) {
     document.getElementById('bloque-estudiantil').style.display = 'block';
-    document.getElementById('plato-estudiantil').textContent = estudiantil;
+    document.getElementById('plato-estudiantil').textContent = textoEstudiantil;
+  } else if (estudiantil && estudiantil.trim() !== '') {
+    // Si viene sin emoji pero tiene valor (menú ejecutivo por PLATO_SEGUNDO)
+    document.getElementById('bloque-ejecutivo').style.display = 'block';
+    document.getElementById('plato-entrada').textContent = entrada || '—';
+    document.getElementById('plato-segundo').textContent = estudiantil.replace('🍛', '').replace('|', '').trim() || '—';
   } else {
     document.getElementById('bloque-ejecutivo').style.display = 'block';
     document.getElementById('plato-entrada').textContent = entrada || '—';
@@ -293,35 +226,30 @@
   }
 
   // Monto
-  var montoNum = parseFloat(monto) || 0;
-  document.getElementById('monto').textContent = 'S/' + montoNum.toFixed(2);
+  document.getElementById('monto').textContent = 'S/' + (parseFloat(monto) || 0).toFixed(2);
 
   // Método de pago
-  var metodos = { 'yape': 'Yape', 'transferencia': 'Transferencia', '': 'Efectivo' };
-  document.getElementById('metodo-pago').textContent = metodos[metodoPago] || metodoPago || 'Efectivo';
+  var metodos = { 'yape': 'Yape', 'transferencia': 'Transferencia', '': 'Efectivo en Cafetín' };
+  document.getElementById('metodo-pago').textContent = 'Pago: ' + (metodos[metodoPago] || metodoPago || 'Efectivo en Cafetín');
 
   // Estado
   document.getElementById('estado').textContent = estado || '🟡 PENDIENTE';
 
-  // Footer fecha
+  // Footer
   var ahora = new Date();
-  var fechaGen = ahora.toLocaleDateString('es-PE') + ' ' + ahora.toLocaleTimeString('es-PE', {hour:'2-digit',minute:'2-digit'});
+  var fechaGen = ahora.toLocaleDateString('es-PE') + ' ' + ahora.toLocaleTimeString('es-PE', {hour:'2-digit', minute:'2-digit'});
   document.getElementById('footer-fecha').textContent = 'VIEW TECH · ' + fechaGen;
 
-  // ── IMPRESIÓN ─────────────────────────────────────────
-  var isAndroid = /Android/i.test(navigator.userAgent);
-  var isIOS     = /iPhone|iPad/i.test(navigator.userAgent);
-
-function imprimir() {
-  if (isAndroid) {
-    // Fuerza abrir en Chrome nativo
-    var url = window.location.href;
-    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") + 
-      "#Intent;scheme=https;package=com.android.chrome;end";
-  } else {
-    window.print();
-  }
-}
+  // Impresión
+  window.onload = function() {
+    var esMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (esMobile) {
+      document.getElementById('btn-mobile').style.display = 'block';
+    } else {
+      document.getElementById('btn-desktop').style.display = 'block';
+      setTimeout(function() { window.print(); }, 800);
+    }
+  };
 </script>
 
 </body>
